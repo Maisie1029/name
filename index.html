@@ -1,0 +1,43 @@
+<!DOCTYPE html>  
+<html lang="zh-CN">  
+<head>  
+    <meta charset="UTF-8">  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <title>名字比较</title>  
+    <script>  
+        // 当文档加载完成后执行  
+        document.addEventListener('DOMContentLoaded', function() {  
+            document.getElementById('compareButton').addEventListener('click', function() {  
+                // 获取两组名字  
+                var namesAll = document.getElementById('namesAll').value.split(', ');  
+                var namesSecond = document.getElementById('namesSecond').value.split(', ');  
+  
+                // 使用Set来存储唯一的名字，并计算差异  
+                var setAll = new Set(namesAll);  
+                var missingNames = [];  
+  
+                // 遍历第二组名字，检查哪些不在第一组中  
+                namesSecond.forEach(function(name) {  
+                    if (!setAll.has(name.trim())) {  
+                        missingNames.push(name.trim());  
+                    }  
+                });  
+  
+                // 清除并显示结果  
+                document.getElementById('result').innerText = '第二组名字中缺少的名字有: ' + (missingNames.length ? missingNames.join(', ') : '无');  
+            });  
+        });  
+    </script>  
+</head>  
+<body>  
+    <h2>输入所有人名字（用逗号加空格分隔）</h2>  
+    <input type="text" id="namesAll" placeholder="例如：张三, 李四, 王五">  
+  
+    <h2>输入另一组名字（同样用逗号加空格分隔）</h2>  
+    <input type="text" id="namesSecond" placeholder="例如：李四, 赵六">  
+  
+    <button id="compareButton">比较名字</button>  
+  
+    <p id="result"></p>  
+</body>  
+</html>
